@@ -1,0 +1,10 @@
+# _config.yml
+title: Jetraw Documentation
+remote_theme: just-the-docs/just-the-docs
+plugins: [jekyll-remote-theme]
+just_the_docs:
+  search_enabled: true
+  #logo: /assets/logo.svg
+  #nav_external_links:
+  #  - title: "Edit this page"
+  #    url: "https://github.com/<org>/<repo>/edit/main/:path"
