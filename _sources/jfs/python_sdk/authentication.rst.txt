@@ -1,0 +1,78 @@
+Authentication
+==============
+
+To use the python SDK, you need to authenticate to the platform. Authentication and communication with the platform is done through the ``jetraw.Client`` class. 
+
+Creating the client object
+--------------------------
+
+There are several ways to authenticate to the platform.
+
+1. Using an API key
+2. Logging in with a browser
+3. Using a configuration file
+
+Using an API key
+^^^^^^^^^^^^^^^^
+
+Creating the client using an API key is the only authentication workflow that also works on headless machines. The API key can be obtained by using the desktop application, by going to the general settings, and copying the API key. This API key is user specific and should not be shared with anyone. 
+
+.. code-block:: python
+
+    from jetraw import Client
+    client = Client(refresh_token="<your_api_key>")
+
+Logging in with a browser
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Logging in with a browser allows you to authenticate without having an API key, but it requires a machine with a browser and it requires you to login interactively.
+
+.. code-block:: python
+
+    from jetraw import Client
+    c = Client(refresh_token_if_empty=False)
+    c.authorize()
+
+This will open a browser window where you will need to login to the platform.
+
+Using a configuration file
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you previously logged in using Client.authorize(), or by using the CLI, you can create the client without providing any arguments. It will load the configuration file, and connect to the organisation that was used for the login.
+
+.. code-block:: python
+
+    from jetraw import Client
+    client = Client()
+
+Using the client object
+-----------------------
+
+The client object manages the authentication to the platform. It can be set globally for all operations by using the ``set_default_client`` function.
+
+.. code-block:: python
+
+    from jetraw import Client, set_default_client
+    client = Client()
+    set_default_client(client)
+
+This will set the client object as the default client for all operations.
+
+Alternatively, you can pass the client object to the functions that require it.
+
+.. code-block:: python
+
+    from jetraw import Client, upload, JetrawPath
+    client = Client()
+    
+    upload("local-file", "/destination-space/", client=client)
+    file = JetrawPath("/destination-space/local-file", client=client)
+
+This will use the client object for the operation, independent of the global client object and of the configuration file.
+
+Authentication to the storage
+-----------------------------
+
+The client object only manages the authentication to the state server, but it does not currently manage the authentication to the storage. For this reason, you will need to ensure that credentials for the storage is done beforehand. 
+
+For AWS buckets, you will need to copy the ``.aws/credentials`` file to the machine where the python SDK is running, from a machine that is already authenticated to the platform. 

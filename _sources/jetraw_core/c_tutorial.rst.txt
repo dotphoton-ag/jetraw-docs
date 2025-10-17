@@ -1,0 +1,331 @@
+C++ Jetraw Onboarding Docs
+==========================
+
+This is a proposal to add a better UX for customers trying to get started with the C++ libraries.
+
+Introduction
+------------
+
+Welcome to the official documentation of the C++ API of the official Jetraw and Dotphoton core distributions. This documentation aims to be as unopinionated as possible; it is up to the users to choose the tools they want to integrate into their project.
+
+The Jetraw algorithm is responsible for compressing images after they were prepared by Dotphoton Core. The following guide should help you get started with it. If you have any feedback, issues or concerns, please `feel free to create an Issue here <http://google.com>`_ and we will do our best to resolve it as fast as we can!
+
+.. note::
+   Throughout this documentation, Dotphoton Core will be referred to as DPCore.
+
+Prerequisites
+-------------
+
+You need these things to get started:
+
+1. A modern C++ compiler (g++, clang++, etc.). Please make sure that you can compile code that conforms to the C++17 standard, as it is required for some features to work properly. In this guide, clang will be used; however, feel free to use whatever you want!
+2. Jetraw UI or the Library files installed on your system. See the `Download here! <https://www.jetraw.com/>`_ link.
+3. A valid & active Jetraw license. On macOS and Windows, activating licenses is achieved by using the Jetraw UI (via the License tab). On Linux, the license key has to be placed in a file called ``~/.config/jetraw/license.txt``.
+4. A build system like CMake, Meson, or Bazel. This guide will use CMake as it is frequently used and immensely simplifies your workflow.
+5. LibSSL, as it is a dependency of Jetraw and DPCore. On macOS it's the ``openssl`` homebrew package; on Ubuntu it's called ``libssl-dev``.
+6. A way to interact with TIFF files, e.g. the `LibTIFF <http://www.libtiff.org/>`_ C/C++ library.
+
+Setup
+-----
+
+There are many ways to set this up, and this is merely one of them. Let's create a directory for our project:
+
+.. code-block:: bash
+
+   $ mkdir hello_jetraw
+   $ cd hello_jetraw
+
+Here, copy all the dynamic libraries and header files into separate folders called ``lib`` and ``include`` respectively. First, you need to locate the dynamic libraries for your project.
+
+Where to find dynamic libraries?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Linux:** You receive a ``.tar`` archive. Unpack it and you'll have ``lib`` and ``include`` folders that you can copy into your project.
+- **OS X and Windows:** You will find these directories in the ``jetraw`` subfolder inside the Jetraw UI installation path. For example, on a Mac you usually find it under:
+
+  ``/Applications/Jetraw UI.app/Contents/jetraw``
+
+Then, copy ``lib`` and ``include`` into your project folder as follows:
+
+.. code-block:: bash
+
+   $ cp -r /path/to/jetraw/lib /path/to/jetraw/include .
+
+Create a new file as an entry point to your application, along with a ``CMakeLists.txt``:
+
+.. code-block:: bash
+
+   $ touch main.cpp CMakeLists.txt
+
+Edit your ``CMakeLists.txt`` with the following sample content:
+
+.. code-block:: cmake
+
+   cmake_minimum_required(VERSION 3.10)
+
+   set(CMAKE_CXX_STANDARD 17)
+   set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+   project(hello_jetraw VERSION 1.0)
+   add_executable(hello_jetraw main.cpp)
+
+   target_include_directories(hello_jetraw PUBLIC
+       ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+   # Change the library extension according to your system,
+   # e.g., on Linux libraries end in '.so'
+   target_link_libraries(hello_jetraw
+       ${CMAKE_CURRENT_SOURCE_DIR}/lib/libdpcore.dylib
+       ${CMAKE_CURRENT_SOURCE_DIR}/lib/libjetraw.dylib
+       ${CMAKE_CURRENT_SOURCE_DIR}/lib/libjetraw_tiff.dylib)
+
+Next, put the following code into your ``main.cpp`` to verify that CMake correctly picks up the libraries:
+
+.. code-block:: cpp
+
+   #include <iostream>
+
+   #include "dpcore/dpcore.h"
+   #include "jetraw/jetraw.h"
+
+   int main() {
+       std::cout << "Hello Jetraw & DPCore" << '\n';
+       return 0;
+   }
+
+To build and compile, create a ``build`` directory and run ``cmake`` and ``make`` inside it:
+
+.. code-block:: bash
+
+   $ mkdir build
+   $ cd build
+   # -DCMAKE_BUILD_TYPE=Debug is also an option; for optimal speed and compiler optimization,
+   # Release is a good build type.
+   $ cmake .. -DCMAKE_BUILD_TYPE=Release
+   $ cmake --build .
+
+If the build is successful, you should have a binary called ``hello_jetraw``. Running it should display:
+
+.. code-block:: bash
+
+   $ ./hello_jetraw
+   Hello Jetraw & DPCore
+
+Using Microsoft Visual Studio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you are using Visual Studio, you can either open the folder containing your ``CMakeLists.txt`` to configure your solution (see `this guide <https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=msvc-170>`_) or set up a project manually by specifying header and library paths (see `this manual setup guide <https://docs.microsoft.com/en-us/cpp/build/adding-references-in-visual-cpp-projects?view=msvc-170>`_).
+
+Hello, Jetraw
+-------------
+
+A simple workflow utilizing Jetraw and DPCore might involve:
+
+- Preparing a loaded image buffer.
+- Compressing it.
+- Saving it to a file.
+
+A Note on Obtaining Image Buffers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are many ways to obtain image buffers for Jetraw compression. This guide assumes you already have access to an image buffer from a valid TIFF image. If you need guidance on loading TIFF files, the `LibTIFF library <http://www.libtiff.org/libtiff.html>`_ is a good starting point.
+
+Let's look at some sample code:
+
+.. code-block:: cpp
+
+   #include "dpcore/dpcore.h"
+   #include "jetraw/jetraw.h"
+   #include "jetraw_tiff/jetraw_tiff.h"
+
+   int main() {
+       jetraw_tiff_init();
+
+       /* Passing in an empty string makes Jetraw look in the default
+        * path where the license is located. */
+       jetraw_tiff_set_license("");
+
+       /* Load calibration.dat */
+       dpcore_load_parameters("./calibration.dat");
+
+       /* ... load image buffer(s) ... 
+        * Note: imageBuffer is uninitialized here.
+        * For this guide, this part is skipped. */
+       uint16_t *imageBuffer;
+
+       // Change these values to fit your data.
+       uint32_t WIDTH = 2560; 
+       uint32_t HEIGHT = 2160; 
+       int32_t PIXELS = WIDTH * HEIGHT;
+
+       /* Prepare the TIFF image.
+        * Change the third parameter as needed.
+        * (Calibration identifier instructions are provided below.) */
+       dpcore_embed_meta(imageBuffer, PIXELS, "calibration_identifier_here");
+
+       /* dp_tiff is a handle for interacting with the jetraw_tiff library */
+       dp_tiff* handle = nullptr;
+
+       /* Open a new TIFF file to write compressed data.
+        * WARNING: Existing files will be deleted and recreated. */
+       jetraw_tiff_open(
+           "./test_compressed.tiff", 
+           WIDTH, HEIGHT, 
+           "This is a compressed TIFF file",
+           &handle,
+           "w"
+       );
+
+       jetraw_tiff_append(handle, imageBuffer);
+       jetraw_tiff_close(&handle);  
+   }
+
+A Note on ``dp_status`` and Error Handling
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Most functions in ``dpcore.h``, ``jetraw.h``, and ``jetraw_tiff.h`` return an enum value of type ``dp_status`` that indicates the operation's status (e.g., ``dp_success``). To get a description of any error, call ``dp_status_description`` with the returned value. Although error-checking code is omitted in this guide, it might look like this:
+
+.. code-block:: cpp
+
+   dp_status load_params = dpcore_load_parameters("./path/to/calibration.dat");
+
+   if (load_params != dp_success) {
+       // Something went horribly wrong!
+       std::cerr << "[ERROR LOADING CALIBRATION FILE]: "
+                 << dp_status_description(load_params) << '\n';
+       return 1; 
+   }
+
+   // Example output if file does not exist:
+   // [ERROR LOADING CALIBRATION FILE]: Could not read file.
+
+Taking a Closer Look at the Code
+----------------------------------
+
+In the main function, the first steps are straightforward: register LibTIFF (an underlying dependency of ``jetraw_tiff``) and set the license key:
+
+.. code-block:: cpp
+
+   jetraw_tiff_init();
+
+   // This tells Jetraw to look in the default location for the license.
+   jetraw_tiff_set_license("");
+   // Alternatively, provide the license key manually:
+   jetraw_tiff_set_license("ABC_DEF_XYZ_BLA_BLA");
+
+Next, inform ``dpcore`` about the camera used for the images by loading its calibration file. If you did not receive a calibration file in your testing kit, you can find one at: `https://github.com/jetraw/pydpcore/blob/master/pco_3a2dd3a.dat <https://github.com/jetraw/pydpcore/blob/master/pco_3a2dd3a.dat>`_
+
+.. code-block:: cpp
+
+   dpcore_load_parameters("./calibration.dat");
+
+.. note::
+   As C++ programs are compiled, you might prefer supplying file paths (like that for calibration) via command-line arguments rather than hardcoding them.
+
+After setting up, prepare the image buffer with:
+
+.. code-block:: cpp
+
+   dpcore_embed_meta(imageBuffer, WIDTH * HEIGHT, "calibration_identifier");
+
+If your TIFF file has multiple pages, you could loop through each page:
+
+.. code-block:: cpp
+
+   for (const auto& buf : imgBuffers) {
+       dpcore_embed_meta(buf, WIDTH * HEIGHT, "calibration_identifier");
+   }
+
+Finally, finish by closing the TIFF file:
+
+.. code-block:: cpp
+
+   jetraw_tiff_close(&handle);
+
+Compressing Buffers Without Saving Them to a File
+--------------------------------------------------
+
+To modify the prepared image buffer in place without saving it immediately, use ``jetraw_encode()`` from ``jetraw.h``:
+
+.. code-block:: cpp
+
+   dp_status jetraw_encode(const uint16_t* pImgBuffer, uint32_t imgWidth,
+                           uint32_t imgHeight, char* pDstBuffer, int32_t* pDstLen);
+
+A small example:
+
+.. code-block:: cpp
+
+   // To use unique_ptr, include <memory>
+   int32_t dstLen = PIXELS / 2;
+   std::unique_ptr<char[]> dstBuffer(new char[dstLen]);
+
+   dp_status encoded = jetraw_encode(
+       imageBuffer, 
+       WIDTH, HEIGHT, 
+       dstBuffer.get(),
+       &dstLen
+   );
+
+   if (encoded != dp_success) {
+       // Handle error...
+   }
+
+   // On success, dstLen contains the size of the compressed data.
+   std::cout << dstLen << '\n';
+
+Decompression
+-------------
+
+To decompress a compressed file, first open it in **read** mode:
+
+.. code-block:: cpp
+
+   jetraw_tiff_open(
+       "./test_compressed.tiff", 
+       WIDTH, HEIGHT, 
+       "This is a compressed TIFF file",
+       &handle,
+       "r"  // "r" stands for 'read'
+   );
+
+Create an image buffer for the uncompressed image:
+
+.. code-block:: cpp
+
+   // To use unique_ptr, include <memory>
+   std::unique_ptr<uint16_t[]> imageBuffer(new uint16_t[PIXELS]);
+   jetraw_tiff_read_page(handle, imageBuffer.get(), 0);
+
+   // ... then write the uncompressed buffer to a file.
+
+If you have only a buffer, use ``jetraw_decode()``:
+
+.. code-block:: cpp
+
+   dp_status jetraw_decode(const char* pSrcBuffer, int32_t srcLen,
+                           uint16_t* pImgBuffer, int32_t imgPixels);
+
+The function writes the decompressed data into ``pImgBuffer``, restoring your original image.
+
+Convenient Functions with ``dp_tiff``
+---------------------------------------
+
+The ``dp_tiff`` handle provides useful information about opened TIFF files:
+
+.. code-block:: cpp
+
+   // Get the width of the opened TIFF file.
+   int width = jetraw_tiff_get_width(handle);
+
+   // Get the height of the opened TIFF file.
+   int height = jetraw_tiff_get_height(handle);
+
+   // Get the number of pages in the opened TIFF file.
+   int amount_of_pages = jetraw_tiff_get_pages(handle);
+
+You Made It!
+------------
+
+As you can see, using Jetraw and DPCore is super easy, convenient, and fast. If you have any questions or need clarification, feel free to post an issue and we will get back to you!
+

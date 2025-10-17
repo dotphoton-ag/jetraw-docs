@@ -1,0 +1,175 @@
+Usage
+#####
+
+Understanding Jetraw
+====================
+Jetraw is a file management system allowing unified file management on multiple storages. You can connect as many AWS buckets and local storages you need. 
+The Jetraw Platform GUI comprises two primary windows: the *File System* window, functioning similar to a conventional file system, and the *Queue* window, tracking ongoing and previous tasks. On application startup, users are directed to the Files window in the ``/Home`` directory.
+
+File System
+===========
+
+The heart of the Jetraw Platform GUI is the *File System Window*. It emulates a typical file system, giving you the power and familiarity to manage your files with ease.
+This window presents all files and folders in the chosen directory (as illustrated in the figure below). Here, users can engage with their data, inspect files, and undertake various operations such as upload, copy/paste, download, and more.
+
+.. image:: ../../_static/files_window.png
+   :alt: Files Window
+   :width: 800px
+   :align: center
+
+Connectivity informers 
+^^^^^^^^^^^^^^^^^^^^^^
+
+You can quickly track connection status of your storages and Internet. 
+Disconnected storages will be shown in red, and you can click the informer to see the full list and access settings.
+
+.. image:: ../../_static/jetraw-platform-connectivity-informers.png
+   :alt: Connectivity informer
+   :width: 800px
+   :align: center
+
+File browsing
+-------------
+
+The files window provides an intuitive experience for navigating and organizing your files, mirroring the familiar functionality of standard file systems.
+
+Navigating the Directory
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+- **Starting Point**: Upon opening, you will begin in the ``/Home`` directory, which serves as your starting point for managing your files.
+  
+- **Accessing Folders**: To navigate inside any folder, simply double-click on the folder, and it will open, displaying its contents.
+
+- **Back and Forth Navigation**: You can move between directories using the back and forward arrows located at the top of the interface, allowing you to return to previously viewed locations with ease.
+
+
+Managing Tabs
+^^^^^^^^^^^^^
+- **Creating Tabs:** You can open additional tabs by clicking the + button next to your existing tabs, enabling you to explore multiple directories at once. (Note: At this time, tabs cannot be rearranged, but this feature is coming soon.)
+
+- **Folder Icon & Drop-down Menu:** Clicking the folder icon next to the directory name in the tab will open a drop-down menu displaying the directory tree. From this menu, you can click on any parent folder to navigate directly back to that location.
+
+.. image:: ../../_static/root_path.png
+    :alt: Directory path 
+    :width: 450px
+    :align: center
+
+- **Right-click options:** If you right-click on the directory name in any tab, you'll see these options:
+   - Close Tab: Closes the current tab.
+   - Close Other Tabs: Closes all other tabs, keeping only the current one open.
+   - Open Folder in New Tab: Opens the current folder in a new tab, replicating the folder view in a fresh tab.
+   
+
+File and Folder Selection
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- **Individual Selection**: Simply click on the desired file or folder.
+
+- **Range Selection**: Click the first file in the desired range, then, while holding down the `Shift` key, click the last file.
+
+- **Non-Adjacent Selection**: To select multiple non-adjacent files or folders, hold the `Command` key and click on each desired item.
+
+- **Deselecting Individual Items**: If you have multiple files or folders selected and wish to deselect a specific item, hold the `Command` key and click on that item.
+
+- **Deselect All**: Click on any empty space within the file browser to deselect all selected items.
+
+
+File & Folder Inspector Panel
+-----------------------------
+
+.. image:: ../../_static/file_info.png
+   :alt: File Information
+   :class: image-right
+   :width: 300px
+
+Located on the right, this panel offers insights into:
+
+- File Size
+- On-Disk Size
+- Compression Ratio (displays as 1:1 if no compression is applied)
+- Storage information: AWS Bucket or Local Drive
+- Modification date
+
+
+File Actions
+------------
+
+While Jetraw Platform offers the familiarity of standard file system interactions, several unique and enhanced operations are available. By right-clicking on a file or folder, users can access the following actions:
+
+- **Copy/Paste**: Right-click on a file or folder to initiate the copy action. To paste, navigate to and right-click within the intended directory. Jetraw Platform also embraces standard keyboard shortcuts, analogous to those in MacOS. For instance, use ``command + c`` to copy and ``command + v`` to paste.
+
+- **Move**: Seamlessly transfer files or folders within Jetraw Platform. Drag and drop your selected file(s) or folder(s) to the target location. The drag-and-drop functionality extends to the directory bar at the top. Hovering over a directory while dragging will expand it, allowing you to navigate through nested directories until you reach the desired location.
+
+- **Delete**: Erase files from the user interface but retain their physical copies in storage. It's important to note that while Jetraw Platform doesn't natively support direct file recovery, it can be accomplished via the Jetraw API and Command Line. For further assistance, please consult with the development team.
+
+- **Rename**: Adjust the names of your files or folders as needed. Selecting the rename action prompts a pop-up window for you to enter the new name. Additionally, renaming can be done directly in the file inspector panel (located on the right) by clicking on the existing name and typing in your desired title.
+
+- **Copy Link**: Allows to share the link of the directory with others for easier data access accross users of the application.
+
+.. image:: ../../_static/files_windows_actions.png
+   :alt: Files window actions
+   :width: 800px
+   :align: center
+
+Beyond these fundamental actions, Jetraw Platform facilitates seamless cloud-based file transfers:
+
+- **Upload**: Upload your files to the cloud. If Jetraw has previously prepared the files (refer to image preparation), they will be automatically compressed during the upload process. Simply choose your destination directory within Jetraw Platform, and drag and drop files from your local system. After this, an ingestion window emerges (see the subsequent illustration), where you can specify the AWS S3 bucket. Following your selections, an upload transaction will populate in the queue. For more on this, refer to the queue section.
+  
+- **Download**: Retrieve your cloud-based files effortlessly. As files are downloaded, they're decompressed to ensure smooth integration with your workflows. To begin, right-click your chosen file and opt for the download function. A pop-up will appear, prompting you to choose a destination directory on your local system. Once confirmed, the download transaction will be listed in the queue. For further details, consult the queue section.
+
+.. image:: ../../_static/files_window_ingestion.png
+   :alt: Files window ingestion
+   :width: 500px
+   :align: center
+
+Queue window
+============
+
+The Queue window provides a visual representation of all current and past transactions (refer to the illustration below). 
+It enables users to pause, resume, and initiate operations, offering in-depth insights into each task.
+
+
+- **Transaction Overview**: Get a quick view of all ongoing, paused and past transactions ordered chronologically. A transaction can represent actions such as "upload of 100 files" or "download of 2 files and 3 folders." The filter option allows users to select whether to focus on different types of operation progress. The finished transactions show the last 200 and each record displays the operation type and the data size involved.
+
+.. image:: ../../_static/gui-queue.png
+   :alt: Queue window current tab
+   :width: 800px
+   :align: center
+
+- **Transaction Interactions**: Choose single or multiple transactions to perform various actions:
+
+* **Clear Queue**: Removes all transactions from the list.
+* **Run Selected**: Select multiple transactions and start.
+* **Delete from Queue**: Cancel specific transaction.
+* **Run Button**: Blue button with white triangle. Clicking on this button will start the associated transaction.
+* **Pause Button**: Orange button with white pause symbol. Clicking on this button will pause the associated transaction.
+* **Finished Icon**: Grey icon with white check mark. This is an icon and it is not clickable.
+* **Retry Button**: Red button with white circular arrows. Clicking on this button will retry the failed transaction.
+* **Queue Progress**: Progress is being tracked in the "Progress" section by the number of files left (e.g., 1/3400), and with the circular blue chart which shows in dark blue the progress in terms of volume (e.g., 25MB of 100MB would show a quarter of the chart in dark blue).
+* **File Indicators**: Files that are currently being uploaded or downloaded will be marked with a clock icon in the *Files Window*, indicating their transaction status.
+
+.. image:: ../../_static/files_window_updating.png
+   :alt: Queued files icon
+   :width: 800px
+   :align: center
+
+
+Dashboard
+==========
+
+The Dashboard provides insights into both storage costs and data transfers (uploads and downloads). Each plot uses two colors: cyan for uncompressed values and blue for compressed values.
+
+You can customize the time-frame by selecting a predefined period (e.g., last 3 months) or specifying custom dates using the calendar. You can also adjust the granularity, from daily to weekly or monthly views.
+
+- **Data Storage Panel**: Tracks overall storage usage based on the selected period.
+- **Data Transfer Panel**: A dual-sided graph displaying uploads (top) and downloads (bottom).
+- **Estimated AWS Savings with Jetraw Panel**: Estimates AWS costs and savings with Jetraw, based on storage pricing (TB/year) and transaction costs.
+- **Compression Rate Panel**: Shows the average compression rate over the selected time period.
+
+.. image:: ../../_static/jetraw-platform-access-dashboard.png
+   :alt: Access Dashboard
+   :width: 800px
+   :align: center
+
+
+

@@ -1,0 +1,145 @@
+/* Light Mode (default) styles */
+.furo-root table tbody tr {
+  color: black !important;
+}
+
+.furo-root table tbody tr:nth-child(odd) {
+  background-color: white !important;
+}
+
+.furo-root table tbody tr:nth-child(even) {
+  background-color: #f5f5f5 !important;  /* Light gray */
+}
+
+/* Dark Mode styles for Furo */
+.furo-root[data-color-scheme~="dark"] table tbody tr {
+  color: white !important;
+}
+  
+.furo-root[data-color-scheme~="dark"] table tbody tr:nth-child(odd) {
+  background-color: #333333 !important;  /* Dark gray */
+}
+
+.furo-root[data-color-scheme~="dark"] table tbody tr:nth-child(even) {
+  background-color: black !important;
+}
+
+.logo img {
+  width: auto;  /* or specify a width, e.g., 150px */
+  height: 50px;  /* adjust as necessary */
+}
+
+.logo_and_title {
+  color: #2F4AF5;  /* Adjust the color as desired */
+}
+
+
+.logo_and_title .body h1 {
+  font-size: 18px;  /* Adjust the size as desired */
+}
+
+/* CUSTOMISING SIDEBAR TITLE */
+.sidebar-brand-text {
+  background-image: url('j-dp-light.png'); /* Default image */
+  background-size: contain; /* Adjust as needed */
+  background-repeat: no-repeat;
+  background-position: center; /* Adjust as needed */
+  height: 60px; /* Adjust based on your image size */
+  width: 100%; /* Adjust as needed */
+}
+
+/* Override for dark mode */
+[data-theme='dark'] .sidebar-brand-text {
+  background-image: url('j-dp-dark.png');
+}
+
+/* Hide the original text */
+.sidebar-brand-text {
+  font-size: 0;
+  color: transparent;
+}
+
+/* FONTS */
+@font-face {
+  font-family: 'FKGroteskSemiMono-Medium';
+  src: url('fonts/FKGroteskSemiMono-Medium.woff2') format('woff2'),
+       url('fonts/FKGroteskSemiMono-Medium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'FKGroteskNeue-Regular';
+  src: url('fonts/FKGroteskNeue-Regular.woff2') format('woff2'),
+       url('fonts/FKGroteskNeue-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Apply FKGroteskSemiMono-Medium to headings */
+.furo-root h1, .furo-root h2, .furo-root h3, .furo-root h4, .furo-root h5, .furo-root h6 {
+  font-family: 'FKGroteskSemiMono-Medium', sans-serif !important;
+}
+
+/* Apply FKGroteskNeue-Regular to body text */
+body, p {
+  font-family: 'FKGroteskNeue-Regular', sans-serif !important;
+}
+
+
+/* BROWSER PAGE DIMENSIONS */
+.main-content {
+  max-width: 100% !important;
+  margin: 0 auto !important;
+}
+
+/* DARK VS LIGH MODE IMAGES */
+
+.theme-dependent-image img {
+    width: 100%;    /* Make the image width occupy 100% of its parent container */
+    height: auto;
+      /* Adjust the height automatically to maintain the aspect ratio */
+    display: none;
+      /* Hide all images by default */
+}
+
+/* Then, similar to previous discussions, use theme-specific classes or data attributes to control which image is displayed */
+html[data-theme='light'] .light-mode-img,
+body[data-theme='light'] .light-mode-img {
+    display: block;
+}
+
+html[data-theme='dark'] .dark-mode-img,
+body[data-theme='dark'] .dark-mode-img {
+    display: block;
+}
+
+/* Default to system preferences if no theme is explicitly set */
+@media (prefers-color-scheme: dark) {
+  html[data-theme='auto'] .light-mode-img,
+    body[data-theme='auto'] .light-mode-img {
+      display: none;
+    }
+  html[data-theme='auto'] .dark-mode-img,
+    body[data-theme='auto'] .dark-mode-img {
+      display: block;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+  html[data-theme='auto'] .dark-mode-img,
+    body[data-theme='auto'] .dark-mode-img {
+      display: none;
+    }
+  html[data-theme='auto'] .light-mode-img,
+    body[data-theme='auto'] .light-mode-img {
+      display: block;
+    }
+}
+
+/* Place figure on the right side of the text */
+.image-right {
+  float: right;
+  margin-left: 20px;
+}

@@ -1,0 +1,21 @@
+Graphical User Interface
+========================
+
+Welcome to the Jetraw Platform GUI documentation. Experience intuitive file browsing with seamless connection to any storage, cloud or local. Effortlessly manage and transfer data using Jetraw's advanced compression technology.
+
+
+.. image:: ../../_static/Laptop.png
+   :alt: Jetraw Platform
+   :width: 800px
+   :align: center
+
+Contents
+--------
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Table of Contents:
+
+   installation
+   usage
+   faq

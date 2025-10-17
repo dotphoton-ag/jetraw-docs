@@ -1,0 +1,84 @@
+Installation
+============
+
+CLI v0.23.0
+
+Current version is suppoted on Windows 10 or higher, on MacOS Ventura 13 or higher and Ubuntu 22.04.
+
+Set the python environment
+--------------------------
+
+To install the Jetraw CLI we need a clean environment and Python installed. For this, we recommend the following steps:
+
+- Install Miniconda: This will install a base version of Python too. To achieve this please proceed as follows:
+
+  - Download the Miniconda installer for MacOS from the `official website <https://docs.conda.io/en/latest/miniconda.html>`_.
+  - Open the Terminal.
+  - Navigate to the location where you downloaded the installer. For example, if the installer is in your Downloads folder, you can navigate there with ``cd /Downloads``.
+  - Run the installer. Replace ``Miniconda3-latest-MacOSX-x86_64.sh`` with the name of the file you downloaded.
+  
+    .. code-block:: console
+
+        $ bash Miniconda3-latest-MacOSX-x86_64.sh
+  
+- Close the Terminal and open a new Terminal window to activate the changes. Type in this command to verify the installation:  
+
+  .. code-block:: console
+
+        $ conda --version
+
+- Create a new environment with the following command: 
+
+  .. code-block:: console
+
+        $ conda create -n jetraw-env python=3.13
+
+- Activate the environment with this command:
+
+  .. code-block:: console
+
+        $ conda activate jetraw-env
+
+Once Python and a the environment has been created and activated, the next step is to install the Jetraw CLI. To do so there are a few options that we propose in the following sections.
+
+Install Jetraw CLI
+------------------
+
+There are two main ways to install the Jetraw CLI (explained below): 
+install the wheels which have been previously downloaded or, install with ``pip`` directly from source. 
+The first option is recommended for general usage. 
+
+Install from a locally downloaded wheel
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+We suggest to install a locally downloaded wheel by following these steps :
+
+- Download the wheel from `Dotphoton Website <https://www.dotphoton.com/products/jetraw-platform/downloads>`_.
+
+- Pip install from local downloaded wheel
+
+  .. code-block:: console
+
+        $ pip install jr_cli --index-url https://jetraw-releases.s3.eu-central-2.amazonaws.com
+
+NB: The Jetraw CLI will only be available in the given environment (``jetraw-env`` in the example above), the user will need to reactivate this environment everytime they open a new terminal for the ``jr`` command to work.
+
+To check that ``jr`` is correctly installed, type in the terminal the following line to see the current installed versions:
+
+.. code-block:: console
+
+    $ jr --version
+    > jr version 0.23.0
+
+Authentication
+^^^^^^^^^^^^^^
+
+After installing the Jetraw CLI, the user will need to authenticate to the platform. This can be done by running the following command:
+
+.. code-block:: console
+
+    $ jr auth login
+
+This will open a browser window where the user will need to login to the platform. Once the login is successful, the user can continue using ``jr``.
+
+
+

@@ -1,0 +1,7 @@
+jetraw.storages module
+======================
+
+.. automodule:: jetraw.storages
+   :members:
+   :show-inheritance:
+   :undoc-members:

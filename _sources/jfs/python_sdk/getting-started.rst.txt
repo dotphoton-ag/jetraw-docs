@@ -1,0 +1,81 @@
+Getting started
+==============================
+
+The code block below shows a quick overview of how to interract with the filesystem,
+and how to upload and download files. It does not show how to manage the organisation
+itself, but more detailed documentation is available.
+
+
+
+.. code-block:: python
+
+    from jetraw import Client, set_default_client, JetrawPath, upload, download 
+    from jetraw.trash import delete_from_trash, restore_from_trash
+
+    ################################
+    # Authenticate to the platform
+    ################################
+    client = Client(refresh_token="<your-token>")
+    set_default_client(client)
+
+    ################################
+    # Filesystem operations
+    ################################
+    # Initialize jetraw path with path
+    my_file = JetrawPath("/space-name/my-file.txt")
+    # Initialize jetraw path with link
+    my_file = JetrawPath("jetraw://https//my-organisation.clients.jetraw.com/fs/deq93878-32a5-4g4a-bf6d-ec73d60585e7")
+    # Initialize jetraw path with uuid
+    my_file = JetrawPath("deq93878-32a5-4g4a-bf6d-ec73d60585e7")
+
+    # Get JetrawPath metadata
+    exists = my_file.exists()
+    size = my_file.stat().size
+    size_on_disk size = my_file.stat().size_on_disk
+    file_id = my_file.id
+    space_id = my_file.space_id
+    parent_id = my_file.parent_id
+    file_name = my_file.name
+    full_path = my_file.resolve()
+
+    # Perform operations on a path
+    other_file = my_file.copy_to("/space-name/other-file.txt")
+    my_file = my_file.move_to("/space-name/moved-file.txt")
+
+    # Trash files
+    my_file.unlink()
+    other_file.unlink()
+
+    # Restore from trash
+    restore_from_trash(my_file.id)
+
+    # Remove files from trash
+    delete_from_trash(other_file.id)
+
+    # Create folders
+    my_folder = JetrawPath("/space-name/my-folder")
+    my_folder.mkdir()
+
+    # Iterate over files in folder
+    for file in my_folder.iterdir():
+        # Do something with file
+        print(file.id)
+
+    ################################
+    # Storage operations
+    ################################
+    # Upload single file
+    upload("./file.txt", "/space-name/")
+    # Upload multiple files
+    upload(["file0.txt", "file1.txt", "file2.txt"], "/space-name/")
+    # Upload directory
+    upload("local-dir", "/space-name/")
+    # Mix of files and folders
+    upload(["dir-with-nested-items", "file4.txt"], "/space-name/")
+
+    # Download single file
+    download("/space-name/file.txt", "./local-folder")
+    # Download folder
+    download("/space-name/folder", "./local-folder")
+    # Download several items
+    download(["/space-name/file.txt", "/space-name/folder"], "./local-folder")

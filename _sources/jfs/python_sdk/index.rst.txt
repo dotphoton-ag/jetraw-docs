@@ -1,0 +1,21 @@
+.. Copyright 2025 Dotphoton AG
+
+Jetraw Python SDK
+==============================
+
+Before installing the Jetraw Python SDK, make sure you have:
+
+- Python 3.9 or higher installed
+- pip (Python package manager) available
+
+Contents
+--------
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Table of Contents:
+
+   installation
+   authentication
+   getting-started
+   jetraw

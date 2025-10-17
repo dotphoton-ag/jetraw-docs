@@ -1,0 +1,7 @@
+jetraw.client module
+====================
+
+.. automodule:: jetraw.client
+   :members:
+   :show-inheritance:
+   :undoc-members:

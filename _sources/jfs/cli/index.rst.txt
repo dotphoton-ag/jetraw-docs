@@ -1,0 +1,42 @@
+Command Line Interface
+======================
+
+``jr`` is a command line interface (CLI) to Jetraw Platform, for easy usability and adoption in current workflows, where the usage of a graphical user interface is either inconvenient or impossible.
+The CLI provides typical bash-like commands for interacting with files and folders on the platform. Like the other Jetraw Platform clients, it features transparent compression and decompression for uploads and downloads. 
+
+.. raw:: html
+
+   <div class="theme-dependent-image">
+       <img src="../../_static/main_jfs_cli-dark.png" class="dark-mode-img" alt="Jetraw Platform CLI">
+       <img src="../../_static/main_jfs_cli-light.png" class="light-mode-img" alt="Jetraw Platform CLI">
+   </div>
+
+Features
+--------
+
+``jr`` supports common file management tasks for the data stored on Jetraw Platform, as well as for uploading to or downloading from the Platform. Main tasks achieved with ``jr`` are described below:
+
+- List files and directories
+
+- Upload, download or delete files
+
+- Move, copy/paste files
+
+- Transparent compression/decompression during upload/download
+
+Contents
+--------
+
+.. toctree::
+   :maxdepth: 2
+
+   installation
+   usage
+   
+
+
+
+
+
+
+

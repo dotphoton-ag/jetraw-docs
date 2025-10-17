@@ -1,0 +1,25 @@
+FAQ
+===
+
+**Are Jetraw-stored data compatible with the image viewer software and formats we use?**
+
+Your data stays in its original file format when you upload or download the data. The data is compressed while in storage, and it gets decompressed when reading the files.
+
+**Does Jetraw provide its storage?**
+
+No, Jetraw does not provide storage. You connect your existing local or cloud storage.
+
+**Does Jetraw have access to my data?**
+
+No, Jetraw does not have access to your data. Your data privacy is managed by your storage provider.
+
+**What do you mean by RAW image data? What about device-processed data?**
+
+By "raw" we mean unprocessed data, although we accept certain on-device pre-processing, as long as the file hasn't been processed with lossy compression. Reach out to us with specific processing details and sample images to determine compatibility.
+
+**Can I share the data outside of my team, i.e., with non-Jetraw users?**
+
+Yes, anyone can open and decompress images if they install the Jetraw platform. No account is needed to receive the images.
+
+
+

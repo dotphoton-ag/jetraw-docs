@@ -1,0 +1,7 @@
+jetraw.license module
+=====================
+
+.. automodule:: jetraw.license
+   :members:
+   :show-inheritance:
+   :undoc-members:

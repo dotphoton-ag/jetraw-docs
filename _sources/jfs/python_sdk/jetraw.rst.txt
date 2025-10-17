@@ -1,0 +1,33 @@
+jetraw package
+==============
+
+Module contents
+---------------
+
+.. automodule:: jetraw
+   :members:
+   :show-inheritance:
+   :undoc-members:
+.. autofunction:: jetraw.get_default_client
+.. autofunction:: jetraw.set_default_client
+.. autofunction:: jetraw.authorize
+.. autofunction:: jetraw.download
+.. autofunction:: jetraw.upload
+.. autoclass:: jetraw.Client
+   :no-members:
+.. autoclass:: jetraw.JetrawPath
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   jetraw.client
+   jetraw.license
+   jetraw.links
+   jetraw.path
+   jetraw.spaces
+   jetraw.storages
+   jetraw.trash
+   jetraw.users

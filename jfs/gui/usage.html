@@ -1,0 +1,502 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="FAQ" href="faq.html"><link rel="prev" title="Installation" href="installation.html">
+        <link rel="canonical" href="https://docs.dotphoton.com/jetraw-manual/jfs/gui/usage.html">
+
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+        <title>Usage - Jetraw Platform</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=cf8ed36e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">Jetraw Platform</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <span class="sidebar-brand-text">Jetraw Platform</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Explore our documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../jetraw_core/index.html">Jetraw Core</a><input aria-label="Toggle navigation of Jetraw Core" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../jetraw_core/jetraw_ui.html">Jetraw Image Compression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../jetraw_core/c_tutorial.html">C++ Jetraw Onboarding Docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Jetraw Platform</a><input aria-label="Toggle navigation of Jetraw Platform" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">Graphical User Interface</a><input aria-label="Toggle navigation of Graphical User Interface" checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../cli/index.html">Command Line Interface</a><input aria-label="Toggle navigation of Command Line Interface" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cli/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/usage.html">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../python_sdk/index.html">Jetraw Python SDK</a><input aria-label="Toggle navigation of Jetraw Python SDK" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../python_sdk/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python_sdk/authentication.html">Authentication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python_sdk/getting-started.html">Getting started</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../python_sdk/jetraw.html">jetraw package</a><input aria-label="Toggle navigation of jetraw package" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../python_sdk/jetraw.client.html">jetraw.client module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../python_sdk/jetraw.license.html">jetraw.license module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../python_sdk/jetraw.links.html">jetraw.links module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../python_sdk/jetraw.path.html">jetraw.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../python_sdk/jetraw.spaces.html">jetraw.spaces module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../python_sdk/jetraw.storages.html">jetraw.storages module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../python_sdk/jetraw.trash.html">jetraw.trash module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../python_sdk/jetraw.users.html">jetraw.users module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../_sources/jfs/gui/usage.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h1>
+<section id="understanding-jetraw">
+<h2>Understanding Jetraw<a class="headerlink" href="#understanding-jetraw" title="Link to this heading">¶</a></h2>
+<p>Jetraw is a file management system allowing unified file management on multiple storages. You can connect as many AWS buckets and local storages you need.
+The Jetraw Platform GUI comprises two primary windows: the <em>File System</em> window, functioning similar to a conventional file system, and the <em>Queue</em> window, tracking ongoing and previous tasks. On application startup, users are directed to the Files window in the <code class="docutils literal notranslate"><span class="pre">/Home</span></code> directory.</p>
+</section>
+<section id="file-system">
+<h2>File System<a class="headerlink" href="#file-system" title="Link to this heading">¶</a></h2>
+<p>The heart of the Jetraw Platform GUI is the <em>File System Window</em>. It emulates a typical file system, giving you the power and familiarity to manage your files with ease.
+This window presents all files and folders in the chosen directory (as illustrated in the figure below). Here, users can engage with their data, inspect files, and undertake various operations such as upload, copy/paste, download, and more.</p>
+<a class="reference internal image-reference" href="../../_images/files_window.png"><img alt="Files Window" class="align-center" src="../../_images/files_window.png" style="width: 800px;" />
+</a>
+<section id="connectivity-informers">
+<h3>Connectivity informers<a class="headerlink" href="#connectivity-informers" title="Link to this heading">¶</a></h3>
+<p>You can quickly track connection status of your storages and Internet.
+Disconnected storages will be shown in red, and you can click the informer to see the full list and access settings.</p>
+<a class="reference internal image-reference" href="../../_images/jetraw-platform-connectivity-informers.png"><img alt="Connectivity informer" class="align-center" src="../../_images/jetraw-platform-connectivity-informers.png" style="width: 800px;" />
+</a>
+<section id="file-browsing">
+<h4>File browsing<a class="headerlink" href="#file-browsing" title="Link to this heading">¶</a></h4>
+<p>The files window provides an intuitive experience for navigating and organizing your files, mirroring the familiar functionality of standard file systems.</p>
+</section>
+</section>
+<section id="navigating-the-directory">
+<h3>Navigating the Directory<a class="headerlink" href="#navigating-the-directory" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Starting Point</strong>: Upon opening, you will begin in the <code class="docutils literal notranslate"><span class="pre">/Home</span></code> directory, which serves as your starting point for managing your files.</p></li>
+<li><p><strong>Accessing Folders</strong>: To navigate inside any folder, simply double-click on the folder, and it will open, displaying its contents.</p></li>
+<li><p><strong>Back and Forth Navigation</strong>: You can move between directories using the back and forward arrows located at the top of the interface, allowing you to return to previously viewed locations with ease.</p></li>
+</ul>
+</section>
+<section id="managing-tabs">
+<h3>Managing Tabs<a class="headerlink" href="#managing-tabs" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Creating Tabs:</strong> You can open additional tabs by clicking the + button next to your existing tabs, enabling you to explore multiple directories at once. (Note: At this time, tabs cannot be rearranged, but this feature is coming soon.)</p></li>
+<li><p><strong>Folder Icon &amp; Drop-down Menu:</strong> Clicking the folder icon next to the directory name in the tab will open a drop-down menu displaying the directory tree. From this menu, you can click on any parent folder to navigate directly back to that location.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/root_path.png"><img alt="Directory path" class="align-center" src="../../_images/root_path.png" style="width: 450px;" />
+</a>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Right-click options:</strong> If you right-click on the directory name in any tab, you’ll see these options:</dt><dd><ul>
+<li><p>Close Tab: Closes the current tab.</p></li>
+<li><p>Close Other Tabs: Closes all other tabs, keeping only the current one open.</p></li>
+<li><p>Open Folder in New Tab: Opens the current folder in a new tab, replicating the folder view in a fresh tab.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="file-and-folder-selection">
+<h3>File and Folder Selection<a class="headerlink" href="#file-and-folder-selection" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Individual Selection</strong>: Simply click on the desired file or folder.</p></li>
+<li><p><strong>Range Selection</strong>: Click the first file in the desired range, then, while holding down the <cite>Shift</cite> key, click the last file.</p></li>
+<li><p><strong>Non-Adjacent Selection</strong>: To select multiple non-adjacent files or folders, hold the <cite>Command</cite> key and click on each desired item.</p></li>
+<li><p><strong>Deselecting Individual Items</strong>: If you have multiple files or folders selected and wish to deselect a specific item, hold the <cite>Command</cite> key and click on that item.</p></li>
+<li><p><strong>Deselect All</strong>: Click on any empty space within the file browser to deselect all selected items.</p></li>
+</ul>
+<section id="file-folder-inspector-panel">
+<h4>File &amp; Folder Inspector Panel<a class="headerlink" href="#file-folder-inspector-panel" title="Link to this heading">¶</a></h4>
+<a class="image-right reference internal image-reference" href="../../_images/file_info.png"><img alt="File Information" class="image-right" src="../../_images/file_info.png" style="width: 300px;" />
+</a>
+<p>Located on the right, this panel offers insights into:</p>
+<ul class="simple">
+<li><p>File Size</p></li>
+<li><p>On-Disk Size</p></li>
+<li><p>Compression Ratio (displays as 1:1 if no compression is applied)</p></li>
+<li><p>Storage information: AWS Bucket or Local Drive</p></li>
+<li><p>Modification date</p></li>
+</ul>
+</section>
+<section id="file-actions">
+<h4>File Actions<a class="headerlink" href="#file-actions" title="Link to this heading">¶</a></h4>
+<p>While Jetraw Platform offers the familiarity of standard file system interactions, several unique and enhanced operations are available. By right-clicking on a file or folder, users can access the following actions:</p>
+<ul class="simple">
+<li><p><strong>Copy/Paste</strong>: Right-click on a file or folder to initiate the copy action. To paste, navigate to and right-click within the intended directory. Jetraw Platform also embraces standard keyboard shortcuts, analogous to those in MacOS. For instance, use <code class="docutils literal notranslate"><span class="pre">command</span> <span class="pre">+</span> <span class="pre">c</span></code> to copy and <code class="docutils literal notranslate"><span class="pre">command</span> <span class="pre">+</span> <span class="pre">v</span></code> to paste.</p></li>
+<li><p><strong>Move</strong>: Seamlessly transfer files or folders within Jetraw Platform. Drag and drop your selected file(s) or folder(s) to the target location. The drag-and-drop functionality extends to the directory bar at the top. Hovering over a directory while dragging will expand it, allowing you to navigate through nested directories until you reach the desired location.</p></li>
+<li><p><strong>Delete</strong>: Erase files from the user interface but retain their physical copies in storage. It’s important to note that while Jetraw Platform doesn’t natively support direct file recovery, it can be accomplished via the Jetraw API and Command Line. For further assistance, please consult with the development team.</p></li>
+<li><p><strong>Rename</strong>: Adjust the names of your files or folders as needed. Selecting the rename action prompts a pop-up window for you to enter the new name. Additionally, renaming can be done directly in the file inspector panel (located on the right) by clicking on the existing name and typing in your desired title.</p></li>
+<li><p><strong>Copy Link</strong>: Allows to share the link of the directory with others for easier data access accross users of the application.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/files_windows_actions.png"><img alt="Files window actions" class="align-center" src="../../_images/files_windows_actions.png" style="width: 800px;" />
+</a>
+<p>Beyond these fundamental actions, Jetraw Platform facilitates seamless cloud-based file transfers:</p>
+<ul class="simple">
+<li><p><strong>Upload</strong>: Upload your files to the cloud. If Jetraw has previously prepared the files (refer to image preparation), they will be automatically compressed during the upload process. Simply choose your destination directory within Jetraw Platform, and drag and drop files from your local system. After this, an ingestion window emerges (see the subsequent illustration), where you can specify the AWS S3 bucket. Following your selections, an upload transaction will populate in the queue. For more on this, refer to the queue section.</p></li>
+<li><p><strong>Download</strong>: Retrieve your cloud-based files effortlessly. As files are downloaded, they’re decompressed to ensure smooth integration with your workflows. To begin, right-click your chosen file and opt for the download function. A pop-up will appear, prompting you to choose a destination directory on your local system. Once confirmed, the download transaction will be listed in the queue. For further details, consult the queue section.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/files_window_ingestion.png"><img alt="Files window ingestion" class="align-center" src="../../_images/files_window_ingestion.png" style="width: 500px;" />
+</a>
+</section>
+</section>
+</section>
+<section id="queue-window">
+<h2>Queue window<a class="headerlink" href="#queue-window" title="Link to this heading">¶</a></h2>
+<p>The Queue window provides a visual representation of all current and past transactions (refer to the illustration below).
+It enables users to pause, resume, and initiate operations, offering in-depth insights into each task.</p>
+<ul class="simple">
+<li><p><strong>Transaction Overview</strong>: Get a quick view of all ongoing, paused and past transactions ordered chronologically. A transaction can represent actions such as “upload of 100 files” or “download of 2 files and 3 folders.” The filter option allows users to select whether to focus on different types of operation progress. The finished transactions show the last 200 and each record displays the operation type and the data size involved.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/gui-queue.png"><img alt="Queue window current tab" class="align-center" src="../../_images/gui-queue.png" style="width: 800px;" />
+</a>
+<ul class="simple">
+<li><p><strong>Transaction Interactions</strong>: Choose single or multiple transactions to perform various actions:</p></li>
+</ul>
+<ul class="simple">
+<li><p><strong>Clear Queue</strong>: Removes all transactions from the list.</p></li>
+<li><p><strong>Run Selected</strong>: Select multiple transactions and start.</p></li>
+<li><p><strong>Delete from Queue</strong>: Cancel specific transaction.</p></li>
+<li><p><strong>Run Button</strong>: Blue button with white triangle. Clicking on this button will start the associated transaction.</p></li>
+<li><p><strong>Pause Button</strong>: Orange button with white pause symbol. Clicking on this button will pause the associated transaction.</p></li>
+<li><p><strong>Finished Icon</strong>: Grey icon with white check mark. This is an icon and it is not clickable.</p></li>
+<li><p><strong>Retry Button</strong>: Red button with white circular arrows. Clicking on this button will retry the failed transaction.</p></li>
+<li><p><strong>Queue Progress</strong>: Progress is being tracked in the “Progress” section by the number of files left (e.g., 1/3400), and with the circular blue chart which shows in dark blue the progress in terms of volume (e.g., 25MB of 100MB would show a quarter of the chart in dark blue).</p></li>
+<li><p><strong>File Indicators</strong>: Files that are currently being uploaded or downloaded will be marked with a clock icon in the <em>Files Window</em>, indicating their transaction status.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/files_window_updating.png"><img alt="Queued files icon" class="align-center" src="../../_images/files_window_updating.png" style="width: 800px;" />
+</a>
+</section>
+<section id="dashboard">
+<h2>Dashboard<a class="headerlink" href="#dashboard" title="Link to this heading">¶</a></h2>
+<p>The Dashboard provides insights into both storage costs and data transfers (uploads and downloads). Each plot uses two colors: cyan for uncompressed values and blue for compressed values.</p>
+<p>You can customize the time-frame by selecting a predefined period (e.g., last 3 months) or specifying custom dates using the calendar. You can also adjust the granularity, from daily to weekly or monthly views.</p>
+<ul class="simple">
+<li><p><strong>Data Storage Panel</strong>: Tracks overall storage usage based on the selected period.</p></li>
+<li><p><strong>Data Transfer Panel</strong>: A dual-sided graph displaying uploads (top) and downloads (bottom).</p></li>
+<li><p><strong>Estimated AWS Savings with Jetraw Panel</strong>: Estimates AWS costs and savings with Jetraw, based on storage pricing (TB/year) and transaction costs.</p></li>
+<li><p><strong>Compression Rate Panel</strong>: Shows the average compression rate over the selected time period.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../../_images/jetraw-platform-access-dashboard.png"><img alt="Access Dashboard" class="align-center" src="../../_images/jetraw-platform-access-dashboard.png" style="width: 800px;" />
+</a>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="faq.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">FAQ</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="installation.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Installation</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024 Dotphoton AG. All rights reserved.
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="#" aria-label="Last update">Last update on 2025-10-17</a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Usage</a><ul>
+<li><a class="reference internal" href="#understanding-jetraw">Understanding Jetraw</a></li>
+<li><a class="reference internal" href="#file-system">File System</a><ul>
+<li><a class="reference internal" href="#connectivity-informers">Connectivity informers</a><ul>
+<li><a class="reference internal" href="#file-browsing">File browsing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#navigating-the-directory">Navigating the Directory</a></li>
+<li><a class="reference internal" href="#managing-tabs">Managing Tabs</a></li>
+<li><a class="reference internal" href="#file-and-folder-selection">File and Folder Selection</a><ul>
+<li><a class="reference internal" href="#file-folder-inspector-panel">File &amp; Folder Inspector Panel</a></li>
+<li><a class="reference internal" href="#file-actions">File Actions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#queue-window">Queue window</a></li>
+<li><a class="reference internal" href="#dashboard">Dashboard</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../../_static/theme-detection.js?v=03e06ebd"></script>
+    <script src="../../_static/custom.js?v=52a216f4"></script>
+    </body>
+</html>

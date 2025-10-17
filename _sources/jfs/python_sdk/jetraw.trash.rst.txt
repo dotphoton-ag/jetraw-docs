@@ -1,0 +1,7 @@
+jetraw.trash module
+===================
+
+.. automodule:: jetraw.trash
+   :members:
+   :show-inheritance:
+   :undoc-members:

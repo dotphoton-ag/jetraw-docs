@@ -1,0 +1,652 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Jetraw Platform" href="../jfs/index.html"><link rel="prev" title="Jetraw Image Compression" href="jetraw_ui.html">
+        <link rel="canonical" href="https://docs.dotphoton.com/jetraw-manual/jetraw_core/c_tutorial.html">
+
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+        <title>C++ Jetraw Onboarding Docs - Jetraw Platform</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=cf8ed36e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Jetraw Platform</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <span class="sidebar-brand-text">Jetraw Platform</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Explore our documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Jetraw Core</a><input aria-label="Toggle navigation of Jetraw Core" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="jetraw_ui.html">Jetraw Image Compression</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">C++ Jetraw Onboarding Docs</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../jfs/index.html">Jetraw Platform</a><input aria-label="Toggle navigation of Jetraw Platform" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../jfs/gui/index.html">Graphical User Interface</a><input aria-label="Toggle navigation of Graphical User Interface" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../jfs/gui/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../jfs/gui/usage.html">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../jfs/gui/faq.html">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../jfs/cli/index.html">Command Line Interface</a><input aria-label="Toggle navigation of Command Line Interface" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../jfs/cli/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../jfs/cli/usage.html">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../jfs/python_sdk/index.html">Jetraw Python SDK</a><input aria-label="Toggle navigation of Jetraw Python SDK" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../jfs/python_sdk/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../jfs/python_sdk/authentication.html">Authentication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../jfs/python_sdk/getting-started.html">Getting started</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../jfs/python_sdk/jetraw.html">jetraw package</a><input aria-label="Toggle navigation of jetraw package" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../jfs/python_sdk/jetraw.client.html">jetraw.client module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../jfs/python_sdk/jetraw.license.html">jetraw.license module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../jfs/python_sdk/jetraw.links.html">jetraw.links module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../jfs/python_sdk/jetraw.path.html">jetraw.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../jfs/python_sdk/jetraw.spaces.html">jetraw.spaces module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../jfs/python_sdk/jetraw.storages.html">jetraw.storages module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../jfs/python_sdk/jetraw.trash.html">jetraw.trash module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../jfs/python_sdk/jetraw.users.html">jetraw.users module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/jetraw_core/c_tutorial.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="c-jetraw-onboarding-docs">
+<h1>C++ Jetraw Onboarding Docs<a class="headerlink" href="#c-jetraw-onboarding-docs" title="Link to this heading">¶</a></h1>
+<p>This is a proposal to add a better UX for customers trying to get started with the C++ libraries.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
+<p>Welcome to the official documentation of the C++ API of the official Jetraw and Dotphoton core distributions. This documentation aims to be as unopinionated as possible; it is up to the users to choose the tools they want to integrate into their project.</p>
+<p>The Jetraw algorithm is responsible for compressing images after they were prepared by Dotphoton Core. The following guide should help you get started with it. If you have any feedback, issues or concerns, please <a class="reference external" href="http://google.com">feel free to create an Issue here</a> and we will do our best to resolve it as fast as we can!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Throughout this documentation, Dotphoton Core will be referred to as DPCore.</p>
+</div>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
+<p>You need these things to get started:</p>
+<ol class="arabic simple">
+<li><p>A modern C++ compiler (g++, clang++, etc.). Please make sure that you can compile code that conforms to the C++17 standard, as it is required for some features to work properly. In this guide, clang will be used; however, feel free to use whatever you want!</p></li>
+<li><p>Jetraw UI or the Library files installed on your system. See the <a class="reference external" href="https://www.jetraw.com/">Download here!</a> link.</p></li>
+<li><p>A valid &amp; active Jetraw license. On macOS and Windows, activating licenses is achieved by using the Jetraw UI (via the License tab). On Linux, the license key has to be placed in a file called <code class="docutils literal notranslate"><span class="pre">~/.config/jetraw/license.txt</span></code>.</p></li>
+<li><p>A build system like CMake, Meson, or Bazel. This guide will use CMake as it is frequently used and immensely simplifies your workflow.</p></li>
+<li><p>LibSSL, as it is a dependency of Jetraw and DPCore. On macOS it’s the <code class="docutils literal notranslate"><span class="pre">openssl</span></code> homebrew package; on Ubuntu it’s called <code class="docutils literal notranslate"><span class="pre">libssl-dev</span></code>.</p></li>
+<li><p>A way to interact with TIFF files, e.g. the <a class="reference external" href="http://www.libtiff.org/">LibTIFF</a> C/C++ library.</p></li>
+</ol>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
+<p>There are many ways to set this up, and this is merely one of them. Let’s create a directory for our project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>hello_jetraw
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>hello_jetraw
+</pre></div>
+</div>
+<p>Here, copy all the dynamic libraries and header files into separate folders called <code class="docutils literal notranslate"><span class="pre">lib</span></code> and <code class="docutils literal notranslate"><span class="pre">include</span></code> respectively. First, you need to locate the dynamic libraries for your project.</p>
+<section id="where-to-find-dynamic-libraries">
+<h3>Where to find dynamic libraries?<a class="headerlink" href="#where-to-find-dynamic-libraries" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p><strong>Linux:</strong> You receive a <code class="docutils literal notranslate"><span class="pre">.tar</span></code> archive. Unpack it and you’ll have <code class="docutils literal notranslate"><span class="pre">lib</span></code> and <code class="docutils literal notranslate"><span class="pre">include</span></code> folders that you can copy into your project.</p></li>
+<li><p><strong>OS X and Windows:</strong> You will find these directories in the <code class="docutils literal notranslate"><span class="pre">jetraw</span></code> subfolder inside the Jetraw UI installation path. For example, on a Mac you usually find it under:</p>
+<p><code class="docutils literal notranslate"><span class="pre">/Applications/Jetraw</span> <span class="pre">UI.app/Contents/jetraw</span></code></p>
+</li>
+</ul>
+<p>Then, copy <code class="docutils literal notranslate"><span class="pre">lib</span></code> and <code class="docutils literal notranslate"><span class="pre">include</span></code> into your project folder as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>/path/to/jetraw/lib<span class="w"> </span>/path/to/jetraw/include<span class="w"> </span>.
+</pre></div>
+</div>
+<p>Create a new file as an entry point to your application, along with a <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>touch<span class="w"> </span>main.cpp<span class="w"> </span>CMakeLists.txt
+</pre></div>
+</div>
+<p>Edit your <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> with the following sample content:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.10</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">17</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+
+<span class="nb">project</span><span class="p">(</span><span class="s">hello_jetraw</span><span class="w"> </span><span class="s">VERSION</span><span class="w"> </span><span class="s">1.0</span><span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">hello_jetraw</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
+
+<span class="nb">target_include_directories</span><span class="p">(</span><span class="s">hello_jetraw</span><span class="w"> </span><span class="s">PUBLIC</span>
+<span class="w">    </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/include</span><span class="p">)</span>
+
+<span class="c"># Change the library extension according to your system,</span>
+<span class="c"># e.g., on Linux libraries end in &#39;.so&#39;</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">hello_jetraw</span>
+<span class="w">    </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/lib/libdpcore.dylib</span>
+<span class="w">    </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/lib/libjetraw.dylib</span>
+<span class="w">    </span><span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/lib/libjetraw_tiff.dylib</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, put the following code into your <code class="docutils literal notranslate"><span class="pre">main.cpp</span></code> to verify that CMake correctly picks up the libraries:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;dpcore/dpcore.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;jetraw/jetraw.h&quot;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello Jetraw &amp; DPCore&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To build and compile, create a <code class="docutils literal notranslate"><span class="pre">build</span></code> directory and run <code class="docutils literal notranslate"><span class="pre">cmake</span></code> and <code class="docutils literal notranslate"><span class="pre">make</span></code> inside it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>build
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+<span class="c1"># -DCMAKE_BUILD_TYPE=Debug is also an option; for optimal speed and compiler optimization,</span>
+<span class="c1"># Release is a good build type.</span>
+$<span class="w"> </span>cmake<span class="w"> </span>..<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.
+</pre></div>
+</div>
+<p>If the build is successful, you should have a binary called <code class="docutils literal notranslate"><span class="pre">hello_jetraw</span></code>. Running it should display:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>./hello_jetraw
+Hello<span class="w"> </span>Jetraw<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>DPCore
+</pre></div>
+</div>
+</section>
+<section id="using-microsoft-visual-studio">
+<h3>Using Microsoft Visual Studio<a class="headerlink" href="#using-microsoft-visual-studio" title="Link to this heading">¶</a></h3>
+<p>If you are using Visual Studio, you can either open the folder containing your <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> to configure your solution (see <a class="reference external" href="https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=msvc-170">this guide</a>) or set up a project manually by specifying header and library paths (see <a class="reference external" href="https://docs.microsoft.com/en-us/cpp/build/adding-references-in-visual-cpp-projects?view=msvc-170">this manual setup guide</a>).</p>
+</section>
+</section>
+<section id="hello-jetraw">
+<h2>Hello, Jetraw<a class="headerlink" href="#hello-jetraw" title="Link to this heading">¶</a></h2>
+<p>A simple workflow utilizing Jetraw and DPCore might involve:</p>
+<ul class="simple">
+<li><p>Preparing a loaded image buffer.</p></li>
+<li><p>Compressing it.</p></li>
+<li><p>Saving it to a file.</p></li>
+</ul>
+<section id="a-note-on-obtaining-image-buffers">
+<h3>A Note on Obtaining Image Buffers<a class="headerlink" href="#a-note-on-obtaining-image-buffers" title="Link to this heading">¶</a></h3>
+<p>There are many ways to obtain image buffers for Jetraw compression. This guide assumes you already have access to an image buffer from a valid TIFF image. If you need guidance on loading TIFF files, the <a class="reference external" href="http://www.libtiff.org/libtiff.html">LibTIFF library</a> is a good starting point.</p>
+<p>Let’s look at some sample code:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;dpcore/dpcore.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;jetraw/jetraw.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;jetraw_tiff/jetraw_tiff.h&quot;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">jetraw_tiff_init</span><span class="p">();</span>
+
+<span class="w">    </span><span class="cm">/* Passing in an empty string makes Jetraw look in the default</span>
+<span class="cm">     * path where the license is located. */</span>
+<span class="w">    </span><span class="n">jetraw_tiff_set_license</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/* Load calibration.dat */</span>
+<span class="w">    </span><span class="n">dpcore_load_parameters</span><span class="p">(</span><span class="s">&quot;./calibration.dat&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/* ... load image buffer(s) ...</span>
+<span class="cm">     * Note: imageBuffer is uninitialized here.</span>
+<span class="cm">     * For this guide, this part is skipped. */</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="o">*</span><span class="n">imageBuffer</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Change these values to fit your data.</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2560</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">HEIGHT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2160</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">PIXELS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WIDTH</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HEIGHT</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/* Prepare the TIFF image.</span>
+<span class="cm">     * Change the third parameter as needed.</span>
+<span class="cm">     * (Calibration identifier instructions are provided below.) */</span>
+<span class="w">    </span><span class="n">dpcore_embed_meta</span><span class="p">(</span><span class="n">imageBuffer</span><span class="p">,</span><span class="w"> </span><span class="n">PIXELS</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;calibration_identifier_here&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/* dp_tiff is a handle for interacting with the jetraw_tiff library */</span>
+<span class="w">    </span><span class="n">dp_tiff</span><span class="o">*</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/* Open a new TIFF file to write compressed data.</span>
+<span class="cm">     * WARNING: Existing files will be deleted and recreated. */</span>
+<span class="w">    </span><span class="n">jetraw_tiff_open</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;./test_compressed.tiff&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">WIDTH</span><span class="p">,</span><span class="w"> </span><span class="n">HEIGHT</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;This is a compressed TIFF file&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="o">&amp;</span><span class="n">handle</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;w&quot;</span>
+<span class="w">    </span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">jetraw_tiff_append</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">imageBuffer</span><span class="p">);</span>
+<span class="w">    </span><span class="n">jetraw_tiff_close</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="a-note-on-dp-status-and-error-handling">
+<h3>A Note on <code class="docutils literal notranslate"><span class="pre">dp_status</span></code> and Error Handling<a class="headerlink" href="#a-note-on-dp-status-and-error-handling" title="Link to this heading">¶</a></h3>
+<p>Most functions in <code class="docutils literal notranslate"><span class="pre">dpcore.h</span></code>, <code class="docutils literal notranslate"><span class="pre">jetraw.h</span></code>, and <code class="docutils literal notranslate"><span class="pre">jetraw_tiff.h</span></code> return an enum value of type <code class="docutils literal notranslate"><span class="pre">dp_status</span></code> that indicates the operation’s status (e.g., <code class="docutils literal notranslate"><span class="pre">dp_success</span></code>). To get a description of any error, call <code class="docutils literal notranslate"><span class="pre">dp_status_description</span></code> with the returned value. Although error-checking code is omitted in this guide, it might look like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">dp_status</span><span class="w"> </span><span class="n">load_params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dpcore_load_parameters</span><span class="p">(</span><span class="s">&quot;./path/to/calibration.dat&quot;</span><span class="p">);</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">load_params</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">dp_success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Something went horribly wrong!</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;[ERROR LOADING CALIBRATION FILE]: &quot;</span>
+<span class="w">              </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">dp_status_description</span><span class="p">(</span><span class="n">load_params</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Example output if file does not exist:</span>
+<span class="c1">// [ERROR LOADING CALIBRATION FILE]: Could not read file.</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="taking-a-closer-look-at-the-code">
+<h2>Taking a Closer Look at the Code<a class="headerlink" href="#taking-a-closer-look-at-the-code" title="Link to this heading">¶</a></h2>
+<p>In the main function, the first steps are straightforward: register LibTIFF (an underlying dependency of <code class="docutils literal notranslate"><span class="pre">jetraw_tiff</span></code>) and set the license key:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">jetraw_tiff_init</span><span class="p">();</span>
+
+<span class="c1">// This tells Jetraw to look in the default location for the license.</span>
+<span class="n">jetraw_tiff_set_license</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="c1">// Alternatively, provide the license key manually:</span>
+<span class="n">jetraw_tiff_set_license</span><span class="p">(</span><span class="s">&quot;ABC_DEF_XYZ_BLA_BLA&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Next, inform <code class="docutils literal notranslate"><span class="pre">dpcore</span></code> about the camera used for the images by loading its calibration file. If you did not receive a calibration file in your testing kit, you can find one at: <a class="reference external" href="https://github.com/jetraw/pydpcore/blob/master/pco_3a2dd3a.dat">https://github.com/jetraw/pydpcore/blob/master/pco_3a2dd3a.dat</a></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">dpcore_load_parameters</span><span class="p">(</span><span class="s">&quot;./calibration.dat&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As C++ programs are compiled, you might prefer supplying file paths (like that for calibration) via command-line arguments rather than hardcoding them.</p>
+</div>
+<p>After setting up, prepare the image buffer with:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">dpcore_embed_meta</span><span class="p">(</span><span class="n">imageBuffer</span><span class="p">,</span><span class="w"> </span><span class="n">WIDTH</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HEIGHT</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;calibration_identifier&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If your TIFF file has multiple pages, you could loop through each page:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">buf</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">imgBuffers</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">dpcore_embed_meta</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">WIDTH</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">HEIGHT</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;calibration_identifier&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Finally, finish by closing the TIFF file:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">jetraw_tiff_close</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="compressing-buffers-without-saving-them-to-a-file">
+<h2>Compressing Buffers Without Saving Them to a File<a class="headerlink" href="#compressing-buffers-without-saving-them-to-a-file" title="Link to this heading">¶</a></h2>
+<p>To modify the prepared image buffer in place without saving it immediately, use <code class="docutils literal notranslate"><span class="pre">jetraw_encode()</span></code> from <code class="docutils literal notranslate"><span class="pre">jetraw.h</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">dp_status</span><span class="w"> </span><span class="nf">jetraw_encode</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint16_t</span><span class="o">*</span><span class="w"> </span><span class="n">pImgBuffer</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">imgWidth</span><span class="p">,</span>
+<span class="w">                        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">imgHeight</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">pDstBuffer</span><span class="p">,</span><span class="w"> </span><span class="kt">int32_t</span><span class="o">*</span><span class="w"> </span><span class="n">pDstLen</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>A small example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// To use unique_ptr, include &lt;memory&gt;</span>
+<span class="kt">int32_t</span><span class="w"> </span><span class="n">dstLen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PIXELS</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dstBuffer</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">char</span><span class="p">[</span><span class="n">dstLen</span><span class="p">]);</span>
+
+<span class="n">dp_status</span><span class="w"> </span><span class="n">encoded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jetraw_encode</span><span class="p">(</span>
+<span class="w">    </span><span class="n">imageBuffer</span><span class="p">,</span>
+<span class="w">    </span><span class="n">WIDTH</span><span class="p">,</span><span class="w"> </span><span class="n">HEIGHT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">dstBuffer</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">dstLen</span>
+<span class="p">);</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">encoded</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">dp_success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Handle error...</span>
+<span class="p">}</span>
+
+<span class="c1">// On success, dstLen contains the size of the compressed data.</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">dstLen</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="decompression">
+<h2>Decompression<a class="headerlink" href="#decompression" title="Link to this heading">¶</a></h2>
+<p>To decompress a compressed file, first open it in <strong>read</strong> mode:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">jetraw_tiff_open</span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;./test_compressed.tiff&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">WIDTH</span><span class="p">,</span><span class="w"> </span><span class="n">HEIGHT</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;This is a compressed TIFF file&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">handle</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;r&quot;</span><span class="w">  </span><span class="c1">// &quot;r&quot; stands for &#39;read&#39;</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>Create an image buffer for the uncompressed image:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// To use unique_ptr, include &lt;memory&gt;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">uint16_t</span><span class="p">[]</span><span class="o">&gt;</span><span class="w"> </span><span class="n">imageBuffer</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">uint16_t</span><span class="p">[</span><span class="n">PIXELS</span><span class="p">]);</span>
+<span class="n">jetraw_tiff_read_page</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">imageBuffer</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="c1">// ... then write the uncompressed buffer to a file.</span>
+</pre></div>
+</div>
+<p>If you have only a buffer, use <code class="docutils literal notranslate"><span class="pre">jetraw_decode()</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">dp_status</span><span class="w"> </span><span class="nf">jetraw_decode</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">pSrcBuffer</span><span class="p">,</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">srcLen</span><span class="p">,</span>
+<span class="w">                        </span><span class="kt">uint16_t</span><span class="o">*</span><span class="w"> </span><span class="n">pImgBuffer</span><span class="p">,</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">imgPixels</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The function writes the decompressed data into <code class="docutils literal notranslate"><span class="pre">pImgBuffer</span></code>, restoring your original image.</p>
+</section>
+<section id="convenient-functions-with-dp-tiff">
+<h2>Convenient Functions with <code class="docutils literal notranslate"><span class="pre">dp_tiff</span></code><a class="headerlink" href="#convenient-functions-with-dp-tiff" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">dp_tiff</span></code> handle provides useful information about opened TIFF files:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Get the width of the opened TIFF file.</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jetraw_tiff_get_width</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+
+<span class="c1">// Get the height of the opened TIFF file.</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jetraw_tiff_get_height</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+
+<span class="c1">// Get the number of pages in the opened TIFF file.</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">amount_of_pages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jetraw_tiff_get_pages</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="you-made-it">
+<h2>You Made It!<a class="headerlink" href="#you-made-it" title="Link to this heading">¶</a></h2>
+<p>As you can see, using Jetraw and DPCore is super easy, convenient, and fast. If you have any questions or need clarification, feel free to post an issue and we will get back to you!</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../jfs/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Jetraw Platform</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="jetraw_ui.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Jetraw Image Compression</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024 Dotphoton AG. All rights reserved.
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="#" aria-label="Last update">Last update on 2025-10-17</a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">C++ Jetraw Onboarding Docs</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#setup">Setup</a><ul>
+<li><a class="reference internal" href="#where-to-find-dynamic-libraries">Where to find dynamic libraries?</a></li>
+<li><a class="reference internal" href="#using-microsoft-visual-studio">Using Microsoft Visual Studio</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#hello-jetraw">Hello, Jetraw</a><ul>
+<li><a class="reference internal" href="#a-note-on-obtaining-image-buffers">A Note on Obtaining Image Buffers</a></li>
+<li><a class="reference internal" href="#a-note-on-dp-status-and-error-handling">A Note on <code class="docutils literal notranslate"><span class="pre">dp_status</span></code> and Error Handling</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#taking-a-closer-look-at-the-code">Taking a Closer Look at the Code</a></li>
+<li><a class="reference internal" href="#compressing-buffers-without-saving-them-to-a-file">Compressing Buffers Without Saving Them to a File</a></li>
+<li><a class="reference internal" href="#decompression">Decompression</a></li>
+<li><a class="reference internal" href="#convenient-functions-with-dp-tiff">Convenient Functions with <code class="docutils literal notranslate"><span class="pre">dp_tiff</span></code></a></li>
+<li><a class="reference internal" href="#you-made-it">You Made It!</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/theme-detection.js?v=03e06ebd"></script>
+    <script src="../_static/custom.js?v=52a216f4"></script>
+    </body>
+</html>

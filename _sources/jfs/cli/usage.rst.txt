@@ -1,0 +1,395 @@
+Usage
+=====
+
+To start, type ``jr`` in the command line to learn the general usage (see output below).
+
+.. code-block:: console
+
+   $ jr
+   Fast local filesystem and AWS S3 data management tool with transparent
+   compression and decompression.
+   
+   Usage:
+     jr [command]
+   
+   Available Commands:
+     auth        authentication commands
+     completion  Generate the autocompletion script for the specified shell
+     cp          copy remote files and folders
+     destination manage destinations
+     download    download remote files to a local destination
+     ls          list contents of directory
+     mkdir       make directory
+     mv          move remote files and folders
+     rmdir       remove empty directory
+     trash       manage trash
+     upload      upload local files to a remote destination
+   
+   Flags:
+         --help      command help
+         --version   version for jr
+   
+   Use "jr [command] --help" for more information about a command.
+
+Global flags
+------------
+
+Flags (also known as options or switches) are used to modify the behavior of a command. They provide additional information or settings that help customize how the command is executed. Flags start with a hyphen (-) or double hyphen (–) followed by a flag name.
+There are global flags that can be used with any of the commands listed above and for which specific examples will be provided in each command's section. The following paragraphs pro- vide a more detailed description of each of these global flags.
+
+- ``--access-token <token>``: Used to specify the access token.
+
+- ``--help``: Used to display a concise summary of the tool's usage, available commands, and their options. When used globally (``jr --help``), this flag provides an overview of the entire ``jr`` tool, its main purpose, and a list of available commands. It can also be used with a specific command e.g., ``jr ls --help``, in which case it provides detailed information about that command, its usage, and available options.
+
+- ``--host <server_address>``: Used to specify the server address. 
+
+- ``--log-file <path> <level>``: Sets one or more log files to capture detailed logging infor- mation. This flag allows you to specify the path and log level for each log file.
+
+  .. code-block:: console
+
+    $ jr upload local/path /home/path/to/remote_dir --log-file local/path/file.log
+
+- ``--timeout string``: Used to specify a maximum amount of time that a command or operation is allowed to run before it is forcibly terminated by the system. This is particularly useful for preventing a command from running indefinitely and potentially causing system issues or delays. The time should be specified in seconds (e.g., ``--timeout 10s``). The default timeout is 5 seconds. If this timout is encountered, see the "Errors and Troubleshooting" section for more information.
+
+- ``-v|-vv, --verbose``: Control the level of verbosity for output messages. Higher verbosity levels provide more detailed information about the action being performed. Use ``-v`` or ``--verbose`` for additional information, ``-vv`` for more detailed debugging information.
+
+- ``--version``: Provides the current installed Jetraw CLI version. The output should look like: ``jr --version vx.y.z``.
+
+
+
+``jr`` allows easy data management and uploads/downloads between local file system and AWS S3 storage. The sections below describe the actions and operations that ``jr`` can perform, also known as commands.
+
+AWS operations and connectivity
+-------------------------------
+
+In this user manual, we outline the requirements and steps necessary to use the Jetraw command-line (CLI) tool, along with instructions for setting up AWS credentials.
+
+Our command-line tool offers versatile file management capabilities. When using the ``ls`` command, you can list files and directories stored in Jetraw. This operation interacts exclusively with the Jetraw database, and it does not need access to the destination where the files are stored. 
+However, for tasks involving uploads and downloads, such as transferring data to and from AWS S3, an active connection to AWS is required. Ensure your network connectivity is stable, and that you have configured the necessary AWS credentials for successful uploads and downloads. The ``ls`` command can be used independently without relying on an active AWS connection.
+
+Errors can occur in cases where AWS credentials are absent, incorrect, or when permissions to access buckets are restricted, as well as when there is no internet connectivity available. These errors are listed and shown below in the "Errors and Troubleshooting" section.
+
+
+File browsing
+-------------
+
+Listing files on the Jetraw Platform is done similarly as in any other file system. As a result, a list of files in the  remote path will be listed.
+One line will be printed per file/directory with the creation date, size, size on disk and name. The displayed size corresponds to the original size (the size before uploading and the size
+it will occupy if downloaded). It does not correspond to the disk size in the storage. The disk size on the storage will be lower (if it was compressed) or
+equal to the original size.
+
+.. code-block:: console
+
+   $ jr ls /home/path/to/remote_dir/Folder1
+   Modification Time            Size         On disk   Name
+   11/21/2024 13:59:57       2227728         1216647   Folder1
+
+The following example shows the recursive listing: the command displays not only the contents of the specified directory but also the contents of all subdirectories within it, and the contents of their subdirectories, and so on, recursively. The units displayed for the file size are in bytes. 
+
+.. code-block:: console
+
+   $ jr ls /home/path/to/remote_dir -R
+   Modification Time            Size         On disk   Name
+   11/21/2024 13:59:57       2227728         1216647   Folder1
+
+
+   /home/path/to/remote_dir/Folder1
+   Modification Time           Size	On disk     Name
+   08/08/2023 15:39:10	    10518344    2097152     file1.tif
+   08/08/2023 15:39:10	    10518344   10518344     file2.tif
+
+Finally, the ``-h, --human-readable`` flag allows the unit size to be automatically adjusted into the unit that best represents the file size (Kilobyte (KB), Megabyte (MB), etc). 
+
+.. code-block:: console
+
+   $ jr ls /home/path/to/remote_dir -R -h
+   Modification Time        Size   On disk     Name
+   08/11/2023 13:51:46     22 MB     13 MB     Folder1
+
+   /home/path/to/remote_dir/Folder1
+   Modification Time        Size   On disk     Name
+   08/11/2023 13:51:46     11 MB      2 MB     file1.tif
+   08/08/2023 15:39:10     11 MB     11 MB     file2.tif
+
+Managing directories
+--------------------
+
+Directories can be created using the Jetraw CLI to manage the file system structure. For this, examples on how to create and delete directories are shown below.
+
+1. Create a new directory
+
+   .. code-block:: console
+
+      $ jr mkdir /home/path/to/new_remote_dir
+
+2. Delete empty directory
+
+   .. code-block:: console
+
+      $ jr rmdir /home/path/to/empty_remote_dir
+
+   If you try to remove a non-empty directory with ``rmdir``, you will get ``Error: directory not empty``.
+
+
+Storage destinations
+--------------------
+Storage destinations represent where data can be transferred to or from. This can be a local path, which would typically be the case if the files are stored in a Windows/Samba share, or a valid S3 bucket.
+
+#. To list the available storage destinations and check their connection status.
+
+   .. code-block:: console
+
+      $ jr destination list
+      Destination 'default'
+      URL: https://s3.eu-central-2.amazonaws.com/my-bucket
+      Status: connected
+      Created: 2025-01-30T11:28:17+01:00
+
+#. Add a new destination. Specify the type of destination using the ``--type`` flag for either a local path or an S3 url.
+
+   .. code-block:: console
+
+      $ jr destination add my-storage /Users/username/Desktop/storage/
+      Destination 'my-storage' created successfully
+      
+#. Edit the name or the path/url of a destination. Use the flags ``--set-name`` and ``--set-url``.
+
+   .. code-block:: console
+
+      $ jr destination edit my-storage --set-url /Users/username/Desktop/local/
+      Destination 'my-storage' updated successfully
+
+#. Remove a destination from the list.
+
+   .. code-block:: console
+
+      $ jr destination remove my-storage
+      Destination 'my-storage' removed successfully
+
+
+Upload and download
+-------------------
+Downloads and uploads always occur between remote storage and local storage using the respective ``upload`` and ``download`` commands. The remote storage can be configured to connect to various destinations including AWS S3 buckets, Wasabi cloud storage, or on-premise storage solutions like a NAS.
+
+1. Upload from local to remote storage:
+
+   .. code-block:: console
+
+      $ jr upload /path/to/local_dir /home/path/to/remote_dir # upload to remote storage
+
+2. Upload a directory using ``--verbose`` or ``-v`` flag:
+
+   .. code-block:: console
+
+      $ jr upload /path/to/local_dir /home/path/to/remote_dir -v
+      1:25PM INF Upload succeeded. Size: 10 MB; On disk: 2 MB; Name: file1.tif
+      1:26PM INF Upload succeeded. Size: 10 MB; On disk: 2 MB; Name: file2.tif
+
+   The file size (in human readable units) corresponds to the original file size and on disk size corresponds to the 
+   amount of space the file occupies in the storage. The on-disk size may be equal to or smaller than 
+   the file size, depending on whether the file has been compressed or not. 
+
+   The figure below shows an example of the output obtained when uploaded from local to remote using the Jetraw CLI. The verbosity 
+   level 1 provides one line information per file.
+
+   .. figure:: ../../_static/cli-upload.png
+      :width: 600px
+      :align: center
+      :alt: Upload operation with verbosity level 1 (info).
+
+
+3. Download from default remote storage to local:
+
+   .. code-block:: console
+
+      $ jr download /home/path/to/remote_dir /path/to/local_dir  # download from AWS
+
+4. Download a directory using  ``--verbose`` or  ``-v`` flag:
+
+   .. code-block:: console
+
+      $ jr download /home/path/to/remote_dir /path/to/local_dir -v
+      1:25PM INF Download succeeded. Size: 10 MB; On disk: 2 MB; Name: file1.tif
+      1:26PM INF Download succeeded. Size: 10 MB; On disk: 2 MB; Name: file2.tif
+
+5. Upload a directory using two levels of verbosity with ``-vv`` flag:
+
+   .. code-block:: console
+
+      $ jr upload file1.tif /home/path/to/remote_dir -vv
+      4:55PM DBG Called jr Args=["/Users/myuser/opt/anaconda3/envs/jr/lib/ python3.11/site-packages/jr/bin/jr", "cp", "file1.tif", "://remote/path", "-vv"]
+      4:55PM DBG execute upload fromPath=file1.tif
+      4:55PM DBG processed before upload fromPath=file1.tif toUpload=/var/folders/ 2l/h59mrhk92pz9k6xp9z18ghqr0000gn/T/jetrawfs-sdk-go-1890846095.jetraw 
+      4:55PM DBG upload created toPath=remote/path uploadId= cfb466ba-9f71-4c1e-9701-172a579b338b
+      4:55PM DBG upload started uploadId=cfb466ba-9f71-4c1e-9701-172a579b338b
+      4:55PM DBG upload executed uploadId=cfb466ba-9f71-4c1e-9701-172a579b338b
+      4:55PM INF Upload succeeded. Size: 11 MB; On disk: 11 MB; Name: file1.tif;
+      4:55PM DBG upload completed uploadId=cfb466ba-9f71-4c1e-9701-172a579b338b
+
+Once the upload or download operations are over, a summary metrics is shown as below:
+
+.. code-block:: console
+
+   SUCCESS: Data synchronization to S3 successful. Data uploaded to the S3 bucket.
+
+   Performance Metrics:
+   - Number of files uploaded: 21
+   - Total Data Transferred: 5.2 GB
+   - Compression Ratio: 5:1
+   - Total Time: 00:00:26
+   - Average Transfer Speed: 200.0 MB/s
+
+   Additional Information:
+   - The uploaded data is now available in the specified S3 bucket. - To access the data, use '://remote/path'
+
+
+Copy
+----
+
+Copy files and directories is always done between remote directories and do not increase the disk space. Instead, a symbolic link is created between the two file views and the single physical copy. This reduces redundancy copies within the same storage.
+
+.. code-block:: console
+
+   $ jr cp /home/path/to/remote_dir /home/path/to/new_remote_dir
+
+Move
+----
+
+Move command acts very similar than the copy command, with the difference that it removes the source file as part of the operation. Furthermore, this command can also be used as a ``rename`` operation.
+
+.. code-block:: console
+
+    $ jr mv /home/path/to/remote_dir /home/path/to/new_remote_dir
+
+Trash operations
+----------------
+
+#. Remove single file from the remote directory - no change in storage space occurs, only in the file system view of the user.
+
+   .. code-block:: console
+
+      $ jr trash /home/path/to/remote_path/file.tiff
+
+#. List trash items.
+
+   .. code-block:: console
+
+      $ jr trash /home/path/to/remote_path/file.tiff
+
+#. Restore a file to a specific location.
+
+   .. code-block:: console
+
+      $ jr trash restore README.md /home/documents
+
+#. Permanently delete a file from the trash. This will delete the file from the storage. A confirmation message will be shown. Use ``--force`` to bypass the deletetion confirmation.
+
+   .. code-block:: console
+
+      $ jr trash delete README.md --force
+
+#. Empty the trash bin. A confirmation message will be shown. Use ``--force`` to bypass the deletetion confirmation.
+
+   .. code-block:: console
+
+      $ jr trash empty --force
+
+Autocompletion
+--------------
+
+Autocompletion is available for the ``jr`` command. To enable it, type ``jr completion [command]`` in the terminal. This will add the completion script to the ``.bashrc`` file, or similar configuration files for other shells.
+
+.. code-block:: console
+
+   $ jr completion [command]
+
+Available commands are:
+
+- ``bash``
+- ``zsh``
+- ``fish``
+- ``powershell``
+
+Errors and Troubleshooting
+--------------------------
+
+This section provides information about common errors that you might encounter while using ``jr`` and offers guidance on how to troubleshoot and resolve these issues.
+
+Connectin errors
+~~~~~~~~~~~~~~~~~
+
+The following error will be shown when connection to AWS fails, or there is a timeout.
+
+.. code-block:: console
+
+   ERROR: Connection to AWS Failed or Timed Out
+   The command encountered an issue while attempting to connect to AWS services. 
+   This may be due to a network connectivity problem or a timeout during the 
+   connection attempt.
+       
+   Troubleshooting Tips:
+   - Verify that you have an active and stable internet connection.
+   - Ensure that there are no network restrictions, firewall rules, or proxy 
+   configurations blocking the connection to AWS endpoints.
+   - Check if there is a timeout specified for the command. If the operation 
+   requires more time to complete, consider adjusting the timeout duration.
+
+Authentication and Authorization Errors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+These errors may occur when access is denied to a bucket due to insufficient permissions and also when the AWS credentials have not been correctly configured.
+
+.. code-block:: console
+
+   ERROR: Authentication failed. Please check your AWS credentials and ensure 
+   they have sufficient permissions to access the AWS services.
+
+   Troubleshooting Tips:
+   - Use 'aws configure' to double-check your AWS Access Key ID and Secret 
+   Access Key for typos. 
+   - Verify that the provided credentials have the required permissions to 
+   perform the desired actions on AWS services.
+
+File Management Errors
+~~~~~~~~~~~~~~~~~~~~~~
+
+Directory or Path Not Found: Specifying a directory or file path that does not exist on your local machine or in Jetraw Database (DB).
+
+.. code-block:: console
+
+   ERROR: Directory of Path Not Found. Not such file or directory: /path/to/file.tif
+
+   Troubleshooting Tips:
+   - Double-check the file or directory path you provided and ensure it exists on 
+   your local machine
+   - If you are using relative paths, make sure your are executing the command from 
+   the correct working directory
+
+Object already exists: There is already a file or directory with the same name.
+
+.. code-block:: none
+
+   ERROR: Object already exists
+
+   Troubleshooting Tips:
+   - Use a different name for the file you are trying to upload, or enable 
+   overwriting of existing objects if that's your intent
+
+Unable to remove a file or directory because it is not a remote path.
+
+
+Invalid flag
+
+.. code-block:: console
+
+   $ jr ls -x
+   ERROR: unknown shorthand flag: 'x' in -x
+   Run 'jr ls --help' for usage.
+
+Missing information
+
+.. code-block:: console
+
+   $ jr upload /local/file.tif
+   ERROR: accepts 2 arg(s), received 1
+   Run 'jr upload --help' for usage.

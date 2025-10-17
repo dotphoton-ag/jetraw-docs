@@ -1,0 +1,7 @@
+jetraw.users module
+===================
+
+.. automodule:: jetraw.users
+   :members:
+   :show-inheritance:
+   :undoc-members:
