@@ -6,7 +6,7 @@
 Jetraw
 ======
 
-Welcome to the Jetraw User Manual — a comprehensive guide to use the Jetraw data compression and management solutions. In this manual, you'll discover everything you need to know about both our core algorithm and the Jetraw Platform.
+Welcome to the Jetraw documentation — a comprehensive guide to use the Jetraw data compression and management solutions. In this manual, you'll discover everything you need to know about both our core algorithm and the Jetraw Platform.
 
 .. image:: _static/jetraw-main.png
    :alt: Jetraw by Dotphoton

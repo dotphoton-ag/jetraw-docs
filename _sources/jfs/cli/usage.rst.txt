@@ -62,7 +62,7 @@ There are global flags that can be used with any of the commands listed above an
 AWS operations and connectivity
 -------------------------------
 
-In this user manual, we outline the requirements and steps necessary to use the Jetraw command-line (CLI) tool, along with instructions for setting up AWS credentials.
+In this guide, we outline the requirements and steps necessary to use the Jetraw command-line (CLI) tool, along with instructions for setting up AWS credentials.
 
 Our command-line tool offers versatile file management capabilities. When using the ``ls`` command, you can list files and directories stored in Jetraw. This operation interacts exclusively with the Jetraw database, and it does not need access to the destination where the files are stored. 
 However, for tasks involving uploads and downloads, such as transferring data to and from AWS S3, an active connection to AWS is required. Ensure your network connectivity is stable, and that you have configured the necessary AWS credentials for successful uploads and downloads. The ``ls`` command can be used independently without relying on an active AWS connection.

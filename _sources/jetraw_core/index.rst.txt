@@ -1,13 +1,43 @@
 Jetraw Core
 ===========
 
+Jetraw is a raw image compressor designed to overcome the limitations of
+classical algorithms and provide a solution adapted to a modern environment,
+where power efficiency, transmission speed, transparent integration and the
+quality of advanced image post-processing techniques are central to the user
+experience.
 
+Traditionally, lossless compression algorithms have been power-hungry, and
+provided a compression ratio of 2:1 at most. Lossy compression algorithms had
+been designed mostly for distribution, i.e. for developed images seen by the
+human eye. When these "visually-lossless" algorithms are used on raw images,
+they limits the performance of advanced post-processing techniques that rely on
+recovering weak or hidden signals.
 
-.. image:: ../_static/jetraw-platform.png
+Jetraw achieves the high compression ratios of lossy compression while
+preserving the advantages raw images have for processing. Minute signals, even
+when buried in noise, remain recoverable. This is particularly relevant for
+recent Machine Learning techniques that have been shown to achieve superior
+performance when applied to raw images (better image quality, speed and memory
+usage). Any technique that works on raw images will work unmodified on jetraw
+images.
+
+To achieve its high performance across the above mentioned metrics, Jetraw uses
+a physical model of the image sensor when used under the specific sensor
+settings. The calibration parameters are saved into a ".dat" file which then
+typically contains all the information needed to prepare images from a given
+camera model (e.g. Leica M11) under all its settings. Once images are prepared,
+they can be losslessly compressed/decompressed.
+
+.. image:: ../_static/jetraw_core_image_preparation.png
    :alt: Jetraw Platform 
    :width: 800px
    :align: center
-  
+
+Jetraw Core is the implementation of the Jetraw image compression algorithm, and
+comes as a Command Line Interface, a shared library, a GUI and a VHDL
+implementation, for deployment to an FPGA.
+
 Contents
 --------
    

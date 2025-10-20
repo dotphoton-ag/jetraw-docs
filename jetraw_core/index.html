@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Jetraw Image Compression" href="jetraw_ui.html"><link rel="prev" title="Jetraw" href="../index.html">
-        <link rel="canonical" href="https://docs.dotphoton.com/jetraw-docs/jetraw_core/index.html">
+        <link rel="canonical" href="https://docs.dotphoton.com/jetraw_core/index.html">
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
         <title>Jetraw Core - Jetraw Platform</title>
@@ -270,8 +270,35 @@
         <article role="main" id="furo-main-content">
           <section id="jetraw-core">
 <h1>Jetraw Core<a class="headerlink" href="#jetraw-core" title="Link to this heading">¶</a></h1>
-<a class="reference internal image-reference" href="../_images/jetraw-platform.png"><img alt="Jetraw Platform" class="align-center" src="../_images/jetraw-platform.png" style="width: 800px;" />
+<p>Jetraw is a raw image compressor designed to overcome the limitations of
+classical algorithms and provide a solution adapted to a modern environment,
+where power efficiency, transmission speed, transparent integration and the
+quality of advanced image post-processing techniques are central to the user
+experience.</p>
+<p>Traditionally, lossless compression algorithms have been power-hungry, and
+provided a compression ratio of 2:1 at most. Lossy compression algorithms had
+been designed mostly for distribution, i.e. for developed images seen by the
+human eye. When these “visually-lossless” algorithms are used on raw images,
+they limits the performance of advanced post-processing techniques that rely on
+recovering weak or hidden signals.</p>
+<p>Jetraw achieves the high compression ratios of lossy compression while
+preserving the advantages raw images have for processing. Minute signals, even
+when buried in noise, remain recoverable. This is particularly relevant for
+recent Machine Learning techniques that have been shown to achieve superior
+performance when applied to raw images (better image quality, speed and memory
+usage). Any technique that works on raw images will work unmodified on jetraw
+images.</p>
+<p>To achieve its high performance across the above mentioned metrics, Jetraw uses
+a physical model of the image sensor when used under the specific sensor
+settings. The calibration parameters are saved into a “.dat” file which then
+typically contains all the information needed to prepare images from a given
+camera model (e.g. Leica M11) under all its settings. Once images are prepared,
+they can be losslessly compressed/decompressed.</p>
+<a class="reference internal image-reference" href="_static/jetraw_core_image_preparation.png"><img alt="Jetraw Platform" class="align-center" src="_static/jetraw_core_image_preparation.png" style="width: 800px;" />
 </a>
+<p>Jetraw Core is the implementation of the Jetraw image compression algorithm, and
+comes as a Command Line Interface, a shared library, a GUI and a VHDL
+implementation, for deployment to an FPGA.</p>
 <section id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Link to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
@@ -340,7 +367,7 @@
           </div>
           <div class="right-details">
             <div class="icons">
-              <a class="muted-link " href="#" aria-label="Last update">Last update on 2025-10-17</a>
+              <a class="muted-link " href="#" aria-label="Last update">Last update on 2025-10-20</a>
               
             </div>
           </div>
