@@ -29,6 +29,7 @@ output of the ``jetraw_decode`` function is still a raw image buffer, additional
 logic is required to store the buffer into a more convenient container.
 
 .. code-block:: cpp
+    
     // Copyright 2025 Dotphoton AG
     #include <iostream>
     #include <fstream>
@@ -37,7 +38,6 @@ logic is required to store the buffer into a more convenient container.
 
     #include "jetraw/jetraw.h"
     #include "jetraw/dp_status.h"
-
 
     int main(int argc, char** argv){
         std::filesystem::path source_path("<path-to-encoded-buffer>");

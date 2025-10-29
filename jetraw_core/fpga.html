@@ -293,6 +293,43 @@ the CLI or the tiff related functions.</p>
 <p>The following example code shows how to decode FPGA encoded image buffers. The
 output of the <code class="docutils literal notranslate"><span class="pre">jetraw_decode</span></code> function is still a raw image buffer, additional
 logic is required to store the buffer into a more convenient container.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Copyright 2025 Dotphoton AG</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fstream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;filesystem&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;jetraw/jetraw.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;jetraw/dp_status.h&quot;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">){</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">filesystem</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="n">source_path</span><span class="p">(</span><span class="s">&quot;&lt;path-to-encoded-buffer&gt;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">image_height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">decoded</span><span class="o">-</span><span class="n">height</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">iamge_width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">decoded</span><span class="o">-</span><span class="n">width</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Load image</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ifstream</span><span class="w"> </span><span class="n">source_stream</span><span class="p">(</span><span class="n">source_path</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">source_buffer</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">filesystem</span><span class="o">::</span><span class="n">file_size</span><span class="p">(</span><span class="n">source_path</span><span class="p">));</span>
+<span class="w">    </span><span class="n">source_stream</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">source_buffer</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">source_buffer</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+<span class="w">    </span><span class="c1">// Prepare destination buffer</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint16_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">destination_buffer</span><span class="p">(</span><span class="n">image_height</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">iamge_width</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Decode image</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jetraw_decode</span><span class="p">(</span><span class="n">source_buffer</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span>
+<span class="w">                                </span><span class="n">source_buffer</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="n">destination_buffer</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span>
+<span class="w">                                </span><span class="n">image_height</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">iamge_width</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Check status</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">dp_success</span><span class="p">){</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">dp_status_description</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 </section>
 
