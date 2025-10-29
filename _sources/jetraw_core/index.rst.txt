@@ -47,3 +47,4 @@ Contents
 
    jetraw_ui
    c_tutorial
+   fpga
