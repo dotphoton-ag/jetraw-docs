@@ -58,7 +58,7 @@ We suggest to install a locally downloaded wheel by following these steps :
 
   .. code-block:: console
 
-        $ pip install jr_cli --index-url https://jetraw-releases.s3.eu-central-2.amazonaws.com
+        $ pip install jr_cli --index-url https://releases.jetraw.com
 
 NB: The Jetraw CLI will only be available in the given environment (``jetraw-env`` in the example above), the user will need to reactivate this environment everytime they open a new terminal for the ``jr`` command to work.
 

@@ -6,7 +6,7 @@ command:
 
 .. code-block:: console
 
-    $ pip install jetraw-python-sdk --index-url https://jetraw-releases.s3.eu-central-2.amazonaws.com --extra-index-url https://pypi.org/simple
+    $ pip install jetraw-python-sdk --index-url https://releases.jetraw.com --extra-index-url https://pypi.org/simple
 
 
 This will install the latest version of the SDK. To install a specific
@@ -14,7 +14,7 @@ version, you can use the following command:
 
 .. code-block:: console
 
-    $ pip install jetraw-python-sdk==1.1.0 --index-url https://jetraw-releases.s3.eu-central-2.amazonaws.com --extra-index-url https://pypi.org/simple
+    $ pip install jetraw-python-sdk==1.1.0 --index-url https://releases.jetraw.com --extra-index-url https://pypi.org/simple
 
 This will install the version 1.1.0 of the SDK.
 
